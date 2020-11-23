@@ -33,7 +33,7 @@ try {
 
         AWS.config.credentials.get(function (err) {
             if (err) {
-                alert("Error retrieving credentials.");
+                console.log("Error retrieving credentials.");
                 console.error(err);
                 return;
             }
