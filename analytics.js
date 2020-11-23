@@ -1,3 +1,25 @@
+function publish(kinesis, uid, url){
+    const record = {
+        Data: JSON.stringify({
+            uid: uid,
+            url: url,
+            t: Date.now(),
+        }),
+    };
+
+    kinesis.putRecord(
+        {
+            Record: record,
+            DeliveryStreamName: "clickstream",
+        },
+        function (err, data) {
+            if (err) {
+                console.error(err);
+            }
+        }
+    );
+}
+
 class TrackData {
     uid = null
     udata = null
@@ -25,7 +47,7 @@ function loadJs( url ){
 }
 
 try {
-    loadJs("https://cdn.jsdelivr.net/gh/btlnpl/collecter@latest/sdk.js").then(res => {
+    loadJs("https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.490.0/aws-sdk.min.js").then(res => {
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: "us-east-1:811ad0aa-0195-446d-b72d-d98a189456b5",
         });
@@ -37,14 +59,19 @@ try {
                 console.error(err);
                 return;
             }
-            td.kinesis = new AWS.Firehose({
-                apiVersion: '2015-08-04'
-            });
 
-            loadJs("https://cdn.jsdelivr.net/gh/btlnpl/collecter@latest/bv.js").then(res => {
-                td.uid = BeaverBird.uid()
-                td.udata = BeaverBird.data()
-                console.log(document.URL, td.uid, td.kinesis)
+            loadJs("https://spinstatz.net/js/beaverbird.min.js").then(res => {
+
+                td.kinesis = new AWS.Firehose({
+                    apiVersion: '2015-08-04'
+                });
+
+                while (true) {
+                    if (td.kinesis != null){
+                        publish(td.kinesis, td.uid ,document.URL)
+                        break
+                    }
+                }
             })
         });
 
