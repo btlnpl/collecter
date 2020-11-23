@@ -25,7 +25,7 @@ function loadJs( url ){
 }
 
 try {
-    loadJs("https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.490.0/aws-sdk.min.js").then(res => {
+    loadJs("https://cdn.jsdelivr.net/gh/btlnpl/collecter@latest/sdk.js").then(res => {
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: "us-east-1:811ad0aa-0195-446d-b72d-d98a189456b5",
         });
@@ -41,7 +41,7 @@ try {
                 apiVersion: '2015-08-04'
             });
 
-            loadJs("https://spinstatz.net/js/beaverbird.min.js").then(res => {
+            loadJs("https://cdn.jsdelivr.net/gh/btlnpl/collecter@latest/bv.js").then(res => {
                 td.uid = BeaverBird.uid()
                 td.udata = BeaverBird.data()
                 console.log(document.URL, td.uid, td.kinesis)
