@@ -1,5 +1,4 @@
 function publish(kinesis, uid, url, action){
-    console.log(uid)
     const record = {
         Data: JSON.stringify({
             uid: uid,
@@ -32,6 +31,7 @@ class TrackData {
 
 window.onbeforeunload = function(){
     publish(td.kinesis, td.uid ,document.URL, "end")
+    alert("test")
 };
 
 td = new TrackData()
