@@ -1,10 +1,12 @@
-function publish(kinesis, uid, url){
+function publish(kinesis, uid, url, action){
     console.log(uid)
     const record = {
         Data: JSON.stringify({
             uid: uid,
             url: url,
             t: Date.now(),
+            a: action,
+            uk: td.unique
         }),
     };
 
@@ -25,7 +27,12 @@ class TrackData {
     uid = null
     udata = null
     kinesis = null
+    unique = Math.random().toString(36).replace(/[^a-z0-9]+/g, '')
 }
+
+window.onbeforeunload = function(){
+    publish(td.kinesis, td.uid ,document.URL, "end")
+};
 
 td = new TrackData()
 
@@ -71,7 +78,7 @@ try {
 
                 while (true) {
                     if (td.kinesis != null){
-                        publish(td.kinesis, td.uid ,document.URL)
+                        publish(td.kinesis, td.uid ,document.URL, "start")
                         break
                     }
                 }
@@ -79,6 +86,8 @@ try {
         });
 
     });
+
+
 
 
 } catch(error) {
