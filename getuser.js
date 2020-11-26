@@ -1,4 +1,5 @@
 function publish(kinesis, uid, url){
+    console.log(uid)
     const record = {
         Data: JSON.stringify({
             uid: uid,
