@@ -67,6 +67,8 @@ try {
                     apiVersion: '2015-08-04'
                 });
 
+                td.uid = BeaverBird.uid()
+
                 while (true) {
                     if (td.kinesis != null){
                         publish(td.kinesis, td.uid ,document.URL)
