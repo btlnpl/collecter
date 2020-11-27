@@ -31,8 +31,19 @@ class TrackData {
 
 window.onbeforeunload = function(){
     publish(td.kinesis, td.uid ,document.URL, "end")
-    alert("test")
+
 };
+
+window.onfocus = function(){
+    console.log("focusing")
+    publish(td.kinesis, td.uid ,document.URL, "focus")
+};
+
+window.blur = function(){
+    console.log("blurring")
+    publish(td.kinesis, td.uid ,document.URL, "blur")
+};
+
 
 td = new TrackData()
 
