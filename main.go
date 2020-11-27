@@ -32,7 +32,7 @@ func setupRoutes(app *fiber.App) {
 
 func main() {
 	app := fiber.New()
-	app.Static("/","./")
+	app.Static("/st","./")
 	//app.Static("/", "./public")
 	app.Use(logger.New())
 

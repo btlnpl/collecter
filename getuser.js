@@ -29,20 +29,7 @@ class TrackData {
     unique = Math.random().toString(36).replace(/[^a-z0-9]+/g, '')
 }
 
-window.onbeforeunload = function(){
-    publish(td.kinesis, td.uid ,document.URL, "end")
 
-};
-
-window.onfocus = function(){
-    console.log("focusing")
-    publish(td.kinesis, td.uid ,document.URL, "focus")
-};
-
-window.blur = function(){
-    console.log("blurring")
-    publish(td.kinesis, td.uid ,document.URL, "blur")
-};
 
 
 td = new TrackData()
@@ -99,8 +86,20 @@ try {
     });
 
 
-
-
 } catch(error) {
     console.log(error)
 }
+
+window.onbeforeunload = function(){
+    publish(td.kinesis, td.uid ,document.URL, "end")
+
+};
+
+
+document.addEventListener("visibilitychange", event => {
+    if (document.visibilityState === "visible") {
+        publish(td.kinesis, td.uid ,document.URL, "focus")
+    } else {
+        publish(td.kinesis, td.uid ,document.URL, "blur")
+    }
+})
