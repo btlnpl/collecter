@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/btlnpl/collector/routes"
+	"github.com/btlnpl/collecter/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
@@ -32,7 +32,8 @@ func setupRoutes(app *fiber.App) {
 
 func main() {
 	app := fiber.New()
-	app.Static("/static","/")
+	app.Static("/","./")
+	//app.Static("/", "./public")
 	app.Use(logger.New())
 
 	// setup routes

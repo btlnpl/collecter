@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/btlnpl/collector/controllers"
+	"github.com/btlnpl/collecter/controller"
 	"github.com/gofiber/fiber/v2"
 )
 
