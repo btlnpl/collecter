@@ -1,8 +1,3 @@
-//data transfer
-//unique_id
-//session_time
-
-
 function publish(kinesis, uid, url, action){
     const record = {
         Data: JSON.stringify({
